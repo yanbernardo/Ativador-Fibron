@@ -19,7 +19,9 @@ function codigoOLT()
     configure bridge port 1/1/${ont}/1/1 vlan-id 100 tag single-tagged l2fwder-vlan ${vlan} vlan-scope local
     exit all
     admin save
-    admin software-mngt ihub database save-protected`
+    admin software-mngt ihub database save-protected
+    exit all
+    `
     writeSpace.style = 'text-align: left;'
     writeSpace.innerText = code
     
