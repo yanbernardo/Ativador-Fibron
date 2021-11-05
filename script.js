@@ -3,6 +3,7 @@ function codigoOLT()
     let vlan = document.getElementById('vlan').value;
     let serial = document.getElementById('serial').value;
     let ont = document.getElementById('ont').value;
+    let background = document.getElementById('main')
     serial = serial.slice(0,4) + ':' + serial.slice(4, serial.length);
     
     let writeSpace = document.getElementById("final")
@@ -23,6 +24,7 @@ function codigoOLT()
     exit all
     `
     writeSpace.style = 'text-align: left;'
+    background.style = 'height: 600px;'
     writeSpace.innerText = code
     
 
