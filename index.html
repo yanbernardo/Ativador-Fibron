@@ -4,23 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ativador Fibron</title>
+    <title>OLTs | Provisionamento</title>
 
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
-    <h1>Ativador Fibron</h1>
+    <ul id="nav">
+        <li><a href="#">Provisionamento</a></li>
+        <li><a href="trocasenha.html">Troca de senha</a></li>
+
+    </ul>
            
-    <main id="main">
-        <p>Serial: <input type="text" required id="serial"></p>
-                <p>VLAN: <input type="text" required id="vlan"></p>
-                <p>SLOT/PON/ONT: <input type="text" required id="ont"></p>
-                <button type="submit" onclick="codigoOLT()">Gerar Código</button>
+    <main id="main" class="hel">
+        <h1>Provisionamento ONUs</h1>
+
+        <nav>
+            <ul>
+                <li><a class='hel' href="#">Heliópolis | Vale</a></li>
+                <li><a class='amapa'href="prov_TL1.html">Amapá | Piabetá - TL1</a></li>
+                <li><a class='furakawa'href="">Furakawa</a></li>
+            </ul>
+        </nav>
+
+        <div id="form">
+            <section>
+                <div class="input-pair float-left">
+                    <div class="input">
+                        <label for="serial">Serial*:</label>
+                        <input autocomplete="off" type="text" name="serial" required id="serial">
+                    </div>
+                    <div class="input">
+                        <label for="ont">SLOT/PON/ONT*:</label>
+                        <input autocomplete="off" type="text" required id="ont">
+                    </div>
+                </div>
+                <div class="input-pair float-right">
+                    <div class="input">
+                        <label for="clientID">Código Cliente:</label>
+                        <input autocomplete="off" type="text" id="clientID">
+                    </div>
+                    <div class="input">
+                        <label for="models">MODELO:</label>
+                        <select name="models" id="models">
+                            <option value="MITRASTAR">MitrasStar</option>
+                            <option value="ETN-G1800VW">ETN-G1800VW</option>
+                            <option value="PARKS-411">PARKS-411</option>
+                            <option value="EG8145V5">EG8145</option>
+                            <option value="G-1425G-A">G-1425G-A</option>
+                            <option value="1200GMFXF">1200GMFXF</option>
+                            <option value="FIBRON">Fibron</option>
+                            <option value="8115">8115</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </section>
+
+                    <p><input type="checkbox" name="" id="fibron"> Fibron/8115</p>
+                
+                    <button type="submit" onclick="provisionarOLTNokiaCLI()">Gerar Código</button>
+        </div>
         
-        <p id="final"></p>
+        <div id="answer-box">
+            <textarea readonly name="" id="txtarea" cols="30" rows="10"></textarea>
+            <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
+        </div>
+        <p>Todas as informações sinalizadas com (*) são obrigatórias</p>
+        <footer>
+            <p>Criado por <u>Yan Bernardo</u></p>
+        </footer>
     </main>
 
 

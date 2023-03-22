@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+}
+
+textarea {
+    visibility: inherit;
+    color: #919191;
+    resize: none;
+    width: 60%;
+    height: 300px;
+}
+
+main {
+    background-color: rgb(229, 149, 140);
+    height: 100%;
+}
