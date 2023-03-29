@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,40 +18,38 @@
 
     </ul>
            
-    <main id="main" class="AM">
+    <main id="main" class="FK">
         <h1>Provisionamento ONUs</h1>
 
         <nav>
             <ul>
                 <li><a class='hel' href="index.html">Heliópolis | Vale</a></li>
-                <li><a class='AM'href="#">Amapá | Piabetá - TL1</a></li>
-                <li><a class='FK'href="prov_frkw.html">Furakawa</a></li>
+                <li><a class='AM'href="prov_TL1.html">Amapá | Piabetá - TL1</a></li>
+                <li><a class='FK'href="#">Furakawa</a></li>
             </ul>
         </nav>
 
         <div id="form">
                 <section>
-                    <div class="input">
-                        <label for="olt">Local: </label>
-                        <select name="olt" id="olt">
-                            <option value="AM">Amapá</option>
-                            <option value="PB">Piabetá</option>
-                        </select>
-                    </div>
                     <div class="input-pair float-left">
+                        <div class="input">
+                            <label for="olt">OLT: </label>
+                            <select name="olt" id="olt">
+                                <option value="CM">Demais OLTs</option>
+                                <option value="SB1">São Bento 1</option>
+                                <option value="SB2">São Bento 2</option>
+                                <option value="SB3">São Bento 3</option>
+                                <option value="PQ1">PQ. Amorim 1</option>
+                                <option value="PQ2">PQ. Amorim 2</option>
+                                <option value="VSC">GPON Vasco</option>
+                                <option value="VSC">ST. Maria | São Bernardo</option>
+                                <option value="XV">Xavante | Lote XV</option>
+                            </select>
+                        </div>
                         <div class="input">
                             <label for="serial">Serial:</label>
                             <input autocomplete="off" type="text" name="serial" required id="serial">
                             <label for="">(*)</label>
-                        </div>
-
-                        <div class="input">
-                            <label for="clientID">Código Cliente:</label>
-                            <input autocomplete="off" type="text" name="clientID" id="clientID">
-                        </div>
-                        <div class="input">
-                            <label for="userPPPoE">User PPPoE(Nokia): </label>
-                            <input type="text" name="loginPPP" id="userPPP">
                         </div>
                     </div>
                     <div class="input-pair float-right">
@@ -61,27 +59,15 @@
                             <label for="">(*)</label>
                         </div>
                         <div class="input">
-                            <label for="models">MODELO:</label>
-                            <select name="models" id="models">
-                                <option value="G-140W-H">G-140W-H</option>
-                                <option value="G-1425G-A">G-1425G-A</option>
-                                <option value="G-2425G-A ">G-2425G-A</option>
-                                <option value="EG8145V5">EG8145V5</option>
-                                <option value="1200G2FXS">1200G2FXS</option>
-                                <option value="PARKS-411">PARKS-411</option>
-                                <option value="MAXPRINT">MAXPRINT</option>
-                            </select>
-                        </div>
-                        <div class="input">
-                            <label for="senhaPPPoE">Senha PPPoE(Nokia): </label>
-                            <input type="text" name="senhaPPP" id="senhaPPP">
+                            <label for="clientID">Código Cliente:</label>
+                            <input autocomplete="off" type="text" name="clientID" id="clientID">
                         </div>
                     </div>
                     
                     <div class="clear"></div>
                 </section>
 
-                <button type="submit" onclick="provisionarOLTNokiaTLI()">Gerar Código</button>
+                <button type="submit" onclick="provisionarOLTFurakawa()">Gerar Código</button>
             
         </div>
         
@@ -94,8 +80,5 @@
             <p>Criado por <u>Yan Bernardo</u></p>
         </footer>
     </main>
-
-
-
 </body>
 </html>
