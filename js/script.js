@@ -11,22 +11,23 @@ class OLTTextGenerator {
 }
 
 function provisionarOLTFurakawa() {
-    let olt = document.getElementById('olt').value;
-    let serial = document.getElementById('serial').value;
-    let pos = document.getElementById('ont').value.split('/');
-    this.ID = document.getElementById('clientID').value;
+    let OLT = document.getElementById('olt').value;
+    let dados = new InputProv();
+    let ontArr = dados.getOnt().split("/");
+
 
     let codeFRKW = `en
 conf t
 gpon
-gpon-olt ${pos[0]}/${pos[1]}
-onu fix ${pos[2]}
-onu-profile ${pos[2]} VLAN54-420R
-onu description ${pos[2]} cod.19710
+gpon-olt ${ontArr[0]}/${ontArr[1]}
+onu fix ${ontArr[2]}
+onu-profile ${ontArr[2]} VLAN54-420R
+onu description ${ontArr[2]} cod.${dados.getID()}
 wr mem
 `
-
 }
+
+
 
 function provisionarOLTNokiaCLI() {
     
@@ -202,7 +203,9 @@ function verificarVLAN(ontArr, OLT) {
                 base = 915;
                 break;
         }
-    } else if (OLT == "AM") {
+    } 
+    
+    if (OLT == "AM") {
         switch (placa) {
             case 1:
                 base = 919;
@@ -229,7 +232,9 @@ function verificarVLAN(ontArr, OLT) {
                 base = 1031;
                 break;
         }
-    } else if (OLT == "PB") {
+    } 
+    
+    if (OLT == "PB") {
         switch (placa) {
             case 1:
                 base = 726;
@@ -256,11 +261,13 @@ function verificarVLAN(ontArr, OLT) {
                 base = 838;
                 break;
         }
-    } else if (OLT == "XV") {
+    } 
+    
+    if (OLT == "XV") {
         return `${placa}` + `${porta}`;
-        }
-
-    }else if (OLT == "SB1") {
+    } 
+    
+    if (OLT == "SB1") {
         switch (placa) {
             case 1:
                 base = 1500;
@@ -287,8 +294,9 @@ function verificarVLAN(ontArr, OLT) {
                 base = 2200;
                 break;
         }
-
-    } else if (OLT == "SB2") {
+    } 
+    
+    if (OLT == "SB2") {
         switch (placa) {
             case 1:
                 base = 1616;
@@ -315,8 +323,9 @@ function verificarVLAN(ontArr, OLT) {
                 base = 1728;
                 break;
         }
-        
-    } else if (OLT == "SB3") {
+    } 
+    
+    if (OLT == "SB3") {
         switch (placa) {
             case 1:
                 base = 1649;
@@ -343,8 +352,9 @@ function verificarVLAN(ontArr, OLT) {
                 base = 1751;
                 break;
         }
-        
-    } else if (OLT == "PQ1") {
+    } 
+    
+    if (OLT == "PQ1") {
         switch (placa) {
             case 1:
                 base = 1200;
@@ -371,16 +381,46 @@ function verificarVLAN(ontArr, OLT) {
                 base = 1900;
                 break;
         }
-        
-    } else if (OLT == "PQ2") {
+    } 
+    
+    if (OLT == "PQ2") {
         switch (placa) {
             case 1:
                 base = 1681;
                 break;
-
         }
-        
-    }  else if (OLT == "VSC") {
+    }  
+    
+    if (OLT == "VSC") {
+        switch (placa) {
+            case 1:
+                base = 1000;
+                break;
+            case 2:
+                base = 1016;
+                break;
+            case 3:
+                base = 1032;
+                break;
+            case 4:
+                base = 1048;
+                break;
+            case 5:
+                base = 1064;
+                break;
+            case 6:
+                base = 1080;
+                break;
+            case 7:
+                base = 1096;
+                break;
+            case 8:
+                base = 1112;
+                break;
+        } 
+    } 
+    
+    if (OLT == "VSC") {
         switch (placa) {
             case 1:
                 base = 1000;
@@ -407,37 +447,64 @@ function verificarVLAN(ontArr, OLT) {
                 base = 1112;
                 break;
         }
-        
-    } else if (OLT == "VSC") {
-        switch (placa) {
-            case 1:
-                base = 1000;
-                break;
-            case 2:
-                base = 1016;
-                break;
-            case 3:
-                base = 1032;
-                break;
-            case 4:
-                base = 1048;
-                break;
-            case 5:
-                base = 1064;
-                break;
-            case 6:
-                base = 1080;
-                break;
-            case 7:
-                base = 1096;
-                break;
-            case 8:
-                base = 1112;
-                break;
-        }
-        
-    }  else if (OLT == "STM") {
-        if (porta >= 9) {
+    }  
+    
+    if (OLT == "STM") {
+        if (porta < 5) {
+            switch (placa) {
+                case 1:
+                    base = 110;
+                    break;
+                case 2:
+                    base = 510;
+                    break;
+                case 3:
+                    base = 910;
+                    break;
+                case 4:
+                    base = 1310;
+                    break;
+                case 5:
+                    base = 1710;
+                    break;
+                case 6:
+                    base = 2110;
+                    break;
+                case 7:
+                    base = 2510;
+                    break;
+                case 8:
+                    base = 2910;
+                    break;
+            }       
+        } else if (porta < 9) {
+            switch (placa) {
+                case 1:
+                    base = 210;
+                    break;
+                case 2:
+                    base = 610;
+                    break;
+                case 3:
+                    base = 1010;
+                    break;
+                case 4:
+                    base = 1410;
+                    break;
+                case 5:
+                    base = 1810;
+                    break;
+                case 6:
+                    base = 2210;
+                    break;
+                case 7:
+                    base = 2610;
+                    break;
+                case 8:
+                    base = 3010;
+                    break;
+            }       
+        } else if (porta < 12) {
             switch (placa) {
                 case 1:
                     base = 310;
@@ -463,66 +530,206 @@ function verificarVLAN(ontArr, OLT) {
                 case 8:
                     base = 3110;
                     break;
-            }       
-        } else if (porta >= 5 && porta <= 8) {
-            switch (placa) {
-                case 1:
-                    base = 210;
-                    break;
-                case 2:
-                    base = 1016;
-                    break;
-                case 3:
-                    base = 1032;
-                    break;
-                case 4:
-                    base = 1048;
-                    break;
-                case 5:
-                    base = 1064;
-                    break;
-                case 6:
-                    base = 1080;
-                    break;
-                case 7:
-                    base = 1096;
-                    break;
-                case 8:
-                    base = 1112;
-                    break;
-            }       
+            }
         } else {
             switch (placa) {
                 case 1:
-                    base = 1000;
+                    base = 410;
                     break;
                 case 2:
-                    base = 1016;
+                    base = 810;
                     break;
                 case 3:
-                    base = 1032;
+                    base = 1210;
                     break;
                 case 4:
-                    base = 1048;
+                    base = 1610;
                     break;
                 case 5:
-                    base = 1064;
+                    base = 2010;
                     break;
                 case 6:
-                    base = 1080;
+                    base = 2410;
                     break;
                 case 7:
-                    base = 1096;
+                    base = 2810;
                     break;
                 case 8:
-                    base = 1112;
+                    base = 3210;
                     break;
             }
         }
-        
-        
+    } 
+    
+    if (OLT == "SAM") {
+        switch (placa) {
+            case 1:
+                base = 820;
+                break;
+            case 2:
+                base = 836;
+                break;
+            case 3:
+                base = 852;
+                break;
+            case 4:
+                base = 868;
+                break;
+            case 5:
+                base = 884;
+                break;
+            case 6:
+                base = 900;
+                break;
+            case 7:
+                base = 916;
+                break;
+            case 8:
+                base = 932;
+                break;
+        }
+    }  
+    
+    if (OLT == "NP") {
+        switch (placa) {
+            case 1:
+                base = 2010;
+                break;
+            case 2:
+                base = 2026;
+                break;
+            case 3:
+                base = 2042;
+                break;
+            case 4:
+                base = 2058;
+                break;
+            case 5:
+                base = 2074;
+                break;
+            case 6:
+                base = 2090;
+                break;
+            case 7:
+                base = 2106;
+                break;
+            case 8:
+                base = 2122;
+                break;
+        }
+    } 
+    
+    if (OLT == "SV") {
+        if (porta < 5) {
+            switch (placa) {
+                case 1:
+                    base = 600;
+                    break;
+                case 2:
+                    base = 1000;
+                    break;
+                case 3:
+                    base = 1400;
+                    break;
+                case 4:
+                    base = 1800;
+                    break;
+                case 5:
+                    base = 2200;
+                    break;
+                case 6:
+                    base = 2600;
+                    break;
+                case 7:
+                    base = 3000;
+                    break;
+                case 8:
+                    base = 3400;
+                    break;
+            }       
+        } else if (porta < 9) {
+            switch (placa) {
+                case 1:
+                    base = 700;
+                    break;
+                case 2:
+                    base = 1100;
+                    break;
+                case 3:
+                    base = 1500;
+                    break;
+                case 4:
+                    base = 1900;
+                    break;
+                case 5:
+                    base = 2300;
+                    break;
+                case 6:
+                    base = 2700;
+                    break;
+                case 7:
+                    base = 3100;
+                    break;
+                case 8:
+                    base = 3500;
+                    break;
+            }       
+        } else if (porta < 12) {
+            switch (placa) {
+                case 1:
+                    base = 800;
+                    break;
+                case 2:
+                    base = 1200;
+                    break;
+                case 3:
+                    base = 1600;
+                    break;
+                case 4:
+                    base = 2000;
+                    break;
+                case 5:
+                    base = 2400;
+                    break;
+                case 6:
+                    base = 2800;
+                    break;
+                case 7:
+                    base = 3200;
+                    break;
+                case 8:
+                    base = 3600;
+                    break;
+            }
+        } else {
+            switch (placa) {
+                case 1:
+                    base = 900;
+                    break;
+                case 2:
+                    base = 1300;
+                    break;
+                case 3:
+                    base = 1700;
+                    break;
+                case 4:
+                    base = 2100;
+                    break;
+                case 5:
+                    base = 2500;
+                    break;
+                case 6:
+                    base = 2900;
+                    break;
+                case 7:
+                    base = 3300;
+                    break;
+                case 8:
+                    base = 3700;
+                    break;
+            }
+        }
     }
 
     return base + porta;
-
 }
