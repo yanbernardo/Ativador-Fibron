@@ -31,14 +31,15 @@
 
         <div id="form">
                 <section>
-                    <div class="input">
-                        <label for="olt">Local: </label>
-                        <select name="olt" id="olt">
-                            <option value="AM">Amapá</option>
-                            <option value="PB">Piabetá</option>
-                        </select>
-                    </div>
+
                     <div class="input-pair float-left">
+                        <div class="input">
+                            <label for="olt">Local: </label>
+                            <select name="olt" id="olt">
+                                <option value="AM">Amapá</option>
+                                <option value="PB">Piabetá</option>
+                            </select> (*)
+                        </div>
                         <div class="input">
                             <label for="serial">Serial:</label>
                             <input autocomplete="off" type="text" name="serial" required id="serial">
@@ -46,31 +47,19 @@
                         </div>
 
                         <div class="input">
-                            <label for="clientID">Código Cliente:</label>
-                            <input autocomplete="off" type="text" name="clientID" id="clientID">
-                        </div>
-                        <div class="input">
                             <label for="userPPPoE">User PPPoE(Nokia): </label>
                             <input type="text" name="loginPPP" id="userPPP">
                         </div>
                     </div>
                     <div class="input-pair float-right">
                         <div class="input">
+                            <label for="clientID">Código Cliente:</label>
+                            <input autocomplete="off" type="text" name="clientID" id="clientID">
+                        </div>
+                        <div class="input">
                             <label for="ont">SLOT/PON/ONT:</label>
                             <input autocomplete="off" type="text" name="ont" required id="ont">
                             <label for="">(*)</label>
-                        </div>
-                        <div class="input">
-                            <label for="models">MODELO:</label>
-                            <select name="models" id="models">
-                                <option value="G-140W-H">G-140W-H</option>
-                                <option value="G-1425G-A">G-1425G-A</option>
-                                <option value="G-2425G-A ">G-2425G-A</option>
-                                <option value="EG8145V5">EG8145V5</option>
-                                <option value="1200G2FXS">1200G2FXS</option>
-                                <option value="PARKS-411">PARKS-411</option>
-                                <option value="MAXPRINT">MAXPRINT</option>
-                            </select>
                         </div>
                         <div class="input">
                             <label for="senhaPPPoE">Senha PPPoE(Nokia): </label>

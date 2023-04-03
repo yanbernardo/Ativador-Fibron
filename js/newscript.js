@@ -13,8 +13,11 @@ function provisionarOLTNokiaTLI() {
 
 }
 
-function generateProvCode(OLT, ONU) {
+function provisionarOLTFurakawa() {
 
+}
+
+function generateProvCode(OLT, ONU) {
     if (OLT == 'HL') {
             return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 ${ONU.getModel()} desc2 COD.${ONU.getClientID()}
 configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up
@@ -33,10 +36,9 @@ admin software-mngt ihub database save-protected
 exit all`;
     }
 
-    if (OLT = 'AM' || OLT == 'PB') {
-       
+    if (OLT == 'AM' || OLT == 'PB') {
         if (ONU.getSerial().slice(0,4) == "ALCL") {
-            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getModel()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;
+            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getONUModelAuto()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;
 ED-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}:::::IS;
 ENT-ONTCARD::ONTCARD-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}:::VEIP,1,0::IS;
 ENT-LOGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::;
@@ -51,7 +53,7 @@ ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPos
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="${ONU.getPassword()}";
 `
         } else {
-            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getModel()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=DISABLED;
+            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getONUModelAuto()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=DISABLED;
 ED-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}:::::IS;
 ENT-ONTCARD::ONTCARD-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}:::VEIP,1,0::IS;
 ENT-LOGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::;
@@ -64,16 +66,32 @@ ENT-VLANEGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-$
         }
 
     }
+
+    if (OLT == "SV" || OLT == "SB1" || OLT == "SB2" || OLT == "SB3" || OLT == "PQ1" || OLT == "PQ2" || OLT == "VSC" || OLT == "STM" || OLT == "SAM" || OLT == "NP") {
+
+    }
+    
+    if (OLT == XV) {
+        `en
+conf t
+gpon
+gpon-olt ${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+onu fix ${ONU.getOnuPosArr()[2]}
+onu-profile ${ONU.getOnuPosArr()[2]} VLAN54-420
+onu description ${ONU.getOnuPosArr()[2]} cod.${ONU.getClientID()}
+wr mem
+`
+    }
 }
 
 class OnuDataEntry {
     constructor() {
         this.serial = document.getElementById('serial').value.toUpperCase();
         this.onuPos = document.getElementById('ont').value;
-        this.model = document.getElementById('models').value;
+        this.model = document.getElementById('models');
         this.clientID = document.getElementById('clientID').value;
         this.fibron = document.getElementById('fibron');
-        this.OLT = document.getElementById('olt');
+        this.OLT = document.getElementById('olt').value;
         this.userPPPoE = document.getElementById('userPPP');
         this.senhaPPPoE = document.getElementById('senhaPPP');
     }
@@ -95,7 +113,7 @@ class OnuDataEntry {
     }
 
     getModel() {
-        return this.model;
+        return this.model.value;
     }
 
     getClientID(){
@@ -107,7 +125,7 @@ class OnuDataEntry {
     }
 
     getOLT() {
-        return this.OLT.value;
+        return this.OLT;
     }
 
     getUser() {
@@ -118,10 +136,50 @@ class OnuDataEntry {
         return this.senhaPPPoE.value;
     }
 
+    getONUModelAuto() {
+        return identifyONUModel(this.serial);
+    }
+
     isFibron() {
         return this.fibron.checked;
     }
 
+}
+
+function generateVlanFurakawa(ONUobj) {
+    return `VLAN${verificarVLAN(ONU.getOnuPosArr(), ONU.getOLT())}-${ONUobj.getSerial()}`
+}
+
+function identifyONUModel(serial) {
+    if (serial.slice(0, 4) == "FIOG") {
+        return "100"
+    } else if (serial.slice(0, 4) == "PRKS") {
+        return "PARKS-411"
+    } else if (serial.slice(0, 4) == "FRKW") {
+
+        if (serial.slice(4, 6) == "23" || serial.slice(4, 6) == "27") {
+            return "630"
+        } else if (serial.slice(4, 6) == "15" || serial.slice(4, 6) == "11" || serial.slice(4, 6) == "21") {
+            return "420"
+        }
+
+    } else if (serial.slice(0, 4) == "ALCL") {
+        if (serial.slice(4, 6) == "FB") {
+            return "G-140W-H";
+        }
+        if (serial.slice(4, 6) == "B3" || serial.slice(4, 6) == "B2") {
+            return "G-2425G-A"
+        }
+        if (serial.slice(4, 6) == "FC") {
+            return "G-1425G-A";
+        }
+    } else if (serial.slice(0, 4) == "HWTC"){
+        return "EG8145V5"
+    } else if (serial.slice(0, 4) == "GPON") {
+        return "1200GMFXF"
+    } else {
+        return "undefined";
+    }
 }
 
 function verifyModelVeip(objONU) {
