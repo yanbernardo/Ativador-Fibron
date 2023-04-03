@@ -8,8 +8,7 @@ function provisionarOLTNokiaCLI() {
 function provisionarOLTNokiaTLI() {
     ONU = new OnuDataEntry();
     OLT = ONU.getOLT();
-    let code = generateProvCode(OLT, ONU);
-    writeScript(code);
+    writeScript(generateProvCode(OLT, ONU));
     setButtonVisibility("visible");
 
 }
@@ -37,7 +36,7 @@ exit all`;
     if (OLT = 'AM' || OLT == 'PB') {
        
         if (ONU.getSerial().slice(0,4) == "ALCL") {
-            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getModel()}",DESC2="COD.${ONU.getClientID()}",SERNUM=A${ONU.getSerial()},SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;
+            return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getModel()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;
 ED-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}:::::IS;
 ENT-ONTCARD::ONTCARD-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}:::VEIP,1,0::IS;
 ENT-LOGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::;
@@ -61,7 +60,7 @@ SET-QOS-USQUEUE::ONTL2UNIQ-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}
 SET-VLANPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::MAXNUCMACADR=32,CMITMAXNUMMACADDR=1;
 ENT-VLANEGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::0,${verificarVLAN(ONU.getOnuPosArr(), OLT)}:PORTTRANSMODE=SINGLETAGGED;
 ENT-VLANEGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-${ONU.getOnuVeip()}-1:::0,:PORTTRANSMODE=SINGLETAGGED;    
-        `
+`
         }
 
     }
@@ -131,20 +130,20 @@ function verifyModelVeip(objONU) {
         return 1;
     }
 
-    let inicioSerial = objONU.getSerial().slice(0,4);
+    let serialInit = objONU.getSerial().slice(0,4);
     
-    if (inicioSerial == "MSTC" || inicioSerial == "YHTC" 
-    || inicioSerial == "TLCM" || inicioSerial == "GPON" 
-    || inicioSerial == "CIOT" || inicioSerial == "NBEL" 
-    || inicioSerial == "ASKY" || inicioSerial == "HWTC") {
+    if (serialInit == "MSTC" || serialInit == "YHTC" 
+    || serialInit == "TLCM" || serialInit == "GPON" 
+    || serialInit == "CIOT" || serialInit == "NBEL" 
+    || serialInit == "ASKY" || serialInit == "HWTC") {
         return 6;
-    } else if (inicioSerial == "FRKW") {
+    } else if (serialInit == "FRKW") {
         return 4
-    } else if (inicioSerial == "PRKS"){
+    } else if (serialInit == "PRKS"){
         return 7;
-    } else if (inicioSerial == "ALCL") {
+    } else if (serialInit == "ALCL") {
         return 14;
-    } else if (inicioSerial == "INVP") {
+    } else if (serialInit == "INVP") {
         return 1;
     }
 }
