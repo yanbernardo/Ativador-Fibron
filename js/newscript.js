@@ -15,13 +15,10 @@ function provisionarOLTNokiaTLI() {
 
 function provisionarOLTFurakawa() {
     ONU = new OnuDataEntry();
-    console.log('provisionarOLTFurakawa: Fez a entrada')
     OLT = ONU.getOLT();
-    console.log('provisionarOLTFurakawa: Pegou o nome da OLT: ' + OLT)
     writeScript(generateProvCode(OLT, ONU))
-    console.log('provisionarOLTFurakawa: Gerou o script')
     setButtonVisibility("visible");
-    console.log('provisionarOLTFurakawa: Botão de copia visível, fim de execução')
+
 }
 
 function generateProvCode(OLT, ONU) {
@@ -105,7 +102,7 @@ class OnuDataEntry {
         this.model = document.getElementById('models');
         this.clientID = document.getElementById('clientID').value;
         this.fibron = document.getElementById('fibron');
-        this.OLT = document.getElementById('olt').value;
+        this.OLT = document.getElementById('olt');
         this.userPPPoE = document.getElementById('userPPP');
         this.senhaPPPoE = document.getElementById('senhaPPP');
         this.routerMode = document.getElementById('router');
@@ -113,10 +110,6 @@ class OnuDataEntry {
 
     getSerial(){
         return this.serial;
-    }
-
-    isRouter() {
-        return this.routerMode.checked;
     }
 
     getSerialSplit() {
@@ -144,7 +137,7 @@ class OnuDataEntry {
     }
 
     getOLT() {
-        return this.OLT;
+        return this.OLT.value;
     }
 
     getUser() {
@@ -163,10 +156,14 @@ class OnuDataEntry {
         return this.fibron.checked;
     }
 
+    isRouter() {
+        return this.routerMode.checked;
+    }
+
 }
 
 function generateVLANProfile(ONUobj) {
-    let profile = `VLAN${verificarVLAN(ONU.getOnuPosArr(), ONU.getOLT())}-${identifyONUModel(ONUobj.getSerial())}`
+    let profile = `VLAN${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT())}-${identifyONUModel(ONUobj.getSerial())}`
     if (ONUobj.isRouter()) {
         return profile + "R";
     }
