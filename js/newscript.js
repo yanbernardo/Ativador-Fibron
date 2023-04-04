@@ -1,7 +1,9 @@
 function provisionarOLTNokiaCLI() {
     
     ONU = new OnuDataEntry();
-    writeScript(generateProvCode('HL', ONU));
+    ONU.setOLT("HL")
+    OLT = ONU.getOLT();
+    writeScript(generateProvCode(OLT, ONU));
     setButtonVisibility("visible");
 }
 
@@ -22,6 +24,7 @@ function provisionarOLTFurakawa() {
 }
 
 function generateProvCode(OLT, ONU) {
+    console.log("Nome da OLT: " +OLT)
     if (OLT == 'HL') {
             return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 ${ONU.getModel()} desc2 COD.${ONU.getClientID()}
 configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up
@@ -137,7 +140,16 @@ class OnuDataEntry {
     }
 
     getOLT() {
-        return this.OLT.value;
+        if (typeof(this.OLT) === "string") {
+            return this.OLT;
+        } else {
+            return this.OLT.value;
+        }
+    }
+
+    setOLT(OLT) {
+        this.OLT = OLT;
+        console.log(typeof(this.OLT));
     }
 
     getUser() {
@@ -204,7 +216,7 @@ function identifyONUModel(serial) {
 
 function verifyModelVeip(objONU) {
         
-    if (objONU.getOLT == 'HL' && objONU.isFibron()) {
+    if (objONU.getOLT() == "HL" && objONU.isFibron()) {
         return 1;
     }
 
