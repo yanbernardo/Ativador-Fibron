@@ -14,7 +14,14 @@ function provisionarOLTNokiaTLI() {
 }
 
 function provisionarOLTFurakawa() {
-
+    ONU = new OnuDataEntry();
+    console.log('provisionarOLTFurakawa: Fez a entrada')
+    OLT = ONU.getOLT();
+    console.log('provisionarOLTFurakawa: Pegou o nome da OLT: ' + OLT)
+    writeScript(generateProvCode(OLT, ONU))
+    console.log('provisionarOLTFurakawa: Gerou o script')
+    setButtonVisibility("visible");
+    console.log('provisionarOLTFurakawa: Botão de copia visível, fim de execução')
 }
 
 function generateProvCode(OLT, ONU) {
@@ -68,16 +75,23 @@ ENT-VLANEGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-$
     }
 
     if (OLT == "SV" || OLT == "SB1" || OLT == "SB2" || OLT == "SB3" || OLT == "PQ1" || OLT == "PQ2" || OLT == "VSC" || OLT == "STM" || OLT == "SAM" || OLT == "NP") {
-
+        return `en
+conf t
+int gpon ${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+onu fix ${ONU.getOnuPosArr()[2]}
+onu-profile ${ONU.getOnuPosArr()[2]} ${generateVLANProfile(ONU)}
+onu description ${ONU.getOnuPosArr()[2]} cod.${ONU.getClientID()}
+wr mem
+`
     }
     
-    if (OLT == XV) {
-        `en
+    if (OLT == "XV") {
+        return `en
 conf t
 gpon
 gpon-olt ${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
 onu fix ${ONU.getOnuPosArr()[2]}
-onu-profile ${ONU.getOnuPosArr()[2]} VLAN54-420
+onu-profile ${ONU.getOnuPosArr()[2]} ${generateVLANProfile(ONU)}
 onu description ${ONU.getOnuPosArr()[2]} cod.${ONU.getClientID()}
 wr mem
 `
@@ -94,10 +108,15 @@ class OnuDataEntry {
         this.OLT = document.getElementById('olt').value;
         this.userPPPoE = document.getElementById('userPPP');
         this.senhaPPPoE = document.getElementById('senhaPPP');
+        this.routerMode = document.getElementById('router');
     }
 
     getSerial(){
         return this.serial;
+    }
+
+    isRouter() {
+        return this.routerMode.checked;
     }
 
     getSerialSplit() {
@@ -146,8 +165,12 @@ class OnuDataEntry {
 
 }
 
-function generateVlanFurakawa(ONUobj) {
-    return `VLAN${verificarVLAN(ONU.getOnuPosArr(), ONU.getOLT())}-${ONUobj.getSerial()}`
+function generateVLANProfile(ONUobj) {
+    let profile = `VLAN${verificarVLAN(ONU.getOnuPosArr(), ONU.getOLT())}-${identifyONUModel(ONUobj.getSerial())}`
+    if (ONUobj.isRouter()) {
+        return profile + "R";
+    }
+    return profile;
 }
 
 function identifyONUModel(serial) {
