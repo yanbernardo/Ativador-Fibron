@@ -9,7 +9,9 @@
 body {
     width: 100%;
     text-align: center;
-    background: url(../img/background-img.jpg) black fixed;
+    background: url(../img/background-img.jpg) black no-repeat center center fixed;
+    background-size: cover;
+
     
 }
 
