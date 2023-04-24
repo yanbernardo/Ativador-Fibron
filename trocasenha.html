@@ -23,23 +23,23 @@
 
     <main>
         <h1>Troca de Senha TLI</h1>
-        <div class="input">
-            <label for="">Nome da Rede:* </label>
-            <input autocomplete="off" type="text" id="nome" required>
-        </div>
+        <form onsubmit="gerarScriptNomeESenha(); return false">
+            <div class="input">
+                <label for="">Nome da Rede:* </label>
+                <input placeholder="NomeDoWifi" autocomplete="off" type="text" id="nome" required>
+            </div>
+            <div class="input">
+                <label for="">Nova Senha:* </label>
+                <input placeholder="SenhaDoWifi" autocomplete="off" type="text" id="senha" required>
+            </div>
+            <div class="input">
+                <label for="">SLOT/PON/PORTA:* </label>
+                <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" id="ont" required>
+            </div>
+            
+            <input class="input submit" value="Gerar Código" type="submit">
 
-        <div class="input">
-            <label for="">Nova Senha:* </label>
-            <input autocomplete="off" type="text" id="senha" required>
-        </div>
-
-        <div class="input">
-            <label for="">SLOT/PON/PORTA:* </label>
-            <input autocomplete="off" type="text" id="ont" required>
-        </div>
-
-        <button type="submit" onclick="gerarScriptNomeESenha()">Gerar Código</button>
-
+        </form>
         <div id="answer-box">
             <textarea readonly name="" id="txtarea" cols="30" rows="10"></textarea>
             <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
