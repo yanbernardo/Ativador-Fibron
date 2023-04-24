@@ -149,7 +149,6 @@ class OnuDataEntry {
 
     setOLT(OLT) {
         this.OLT = OLT;
-        console.log(typeof(this.OLT));
     }
 
     getUser() {

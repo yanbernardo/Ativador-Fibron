@@ -9,8 +9,7 @@
 body {
     width: 100%;
     text-align: center;
-    background-color: rgb(0, 0, 0);
-    background: url(../img/background-img.jpg) no-repeat scroll;
+    background: url(../img/background-img.jpg) black fixed;
     
 }
 
@@ -31,7 +30,7 @@ nav a{
     color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 17px;
-    width: 31.7%;
+    width: 389px;
     text-align: center;
 }
 
@@ -50,22 +49,23 @@ h1 {
 
 main {
     margin: auto;
-    width: 80%;
+    min-width: 800px;
+    width: 1240px;
     background-color: rgba(39, 34, 87, 0.5);
-    height: 94.7vh;
+    height: 100vh;
 }
 
 .input {
     margin: 15px 0;
 }
 
-.input input, .input option, .input select{
+.input input, .input option, .input select, input {
     color: black;
 }
 
-button, #copy {
+#copy {
     color: black;
-    margin-bottom: 30px;
+    margin: 30px 0;
 }
 
 #txtarea {
@@ -91,16 +91,21 @@ section {
 }
 
 .input-pair {
-    margin: 0px 6.4%;
+    margin: 0px 30px;
     text-align: left;
+}
+
+label {
+    cursor: pointer;
+}
+
+form {
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .float-left {
     float: left;
-}
-
-.float-right {
-    float: right;
 }
 
 .clear {
@@ -111,13 +116,13 @@ footer {
     background-color: rgba(0, 0, 0, 0.76);
     position: fixed;
     text-align: right;
-    width: 80%;
+    width: 1240px;
+    min-width: 800px;
     height: 30px;
-    align-self: center;
     line-height: 30px;
     bottom: 0;
 }
 
 footer p {
-    margin-right: 5%;
+    margin-right: 100px;
 }

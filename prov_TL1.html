@@ -29,9 +29,8 @@
             </ul>
         </nav>
 
-        <div id="form">
+            <form onsubmit="provisionarOLTNokiaTLI(); return false">
                 <section>
-
                     <div class="input-pair float-left">
                         <div class="input">
                             <label for="olt">Local: </label>
@@ -42,38 +41,34 @@
                         </div>
                         <div class="input">
                             <label for="serial">Serial:</label>
-                            <input autocomplete="off" type="text" name="serial" required id="serial">
+                            <input placeholder="serial" autocomplete="off" type="text" name="serial" required id="serial">
                             <label for="">(*)</label>
                         </div>
-
                         <div class="input">
                             <label for="userPPPoE">User PPPoE(Nokia): </label>
-                            <input type="text" name="loginPPP" id="userPPP">
+                            <input autocomplete="off" placeholder="User PPPoE" type="text" name="loginPPP" id="userPPP">
                         </div>
                     </div>
-                    <div class="input-pair float-right">
+                    <div class="input-pair float-left">
                         <div class="input">
                             <label for="clientID">Código Cliente:</label>
-                            <input autocomplete="off" type="text" name="clientID" id="clientID">
+                            <input placeholder="Cod. Cliente" autocomplete="off" type="text" name="clientID" id="clientID">
                         </div>
                         <div class="input">
                             <label for="ont">SLOT/PON/ONT:</label>
-                            <input autocomplete="off" type="text" name="ont" required id="ont">
+                            <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" name="ont" required id="ont">
                             <label for="">(*)</label>
                         </div>
                         <div class="input">
                             <label for="senhaPPPoE">Senha PPPoE(Nokia): </label>
-                            <input type="text" name="senhaPPP" id="senhaPPP">
+                            <input autocomplete="off" placeholder="Senha PPPoE" type="text" name="senhaPPP" id="senhaPPP">
                         </div>
                     </div>
-                    
+                
                     <div class="clear"></div>
                 </section>
-
-                <button type="submit" onclick="provisionarOLTNokiaTLI()">Gerar Código</button>
-            
-        </div>
-        
+                <input class="input" value="Gerar Código" type="submit">
+            </form>
         <div id="answer-box">
             <textarea readonly name="txtarea" id="txtarea" cols="30" rows="10"></textarea>
             <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
