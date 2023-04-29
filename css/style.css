@@ -106,6 +106,12 @@ form {
     margin: 0 auto;
 }
 
+.submit {
+    width: 150px;
+    height: 35px;
+    margin: 15px 30px;
+}
+
 .float-left {
     float: left;
 }

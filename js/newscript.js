@@ -1,3 +1,5 @@
+// Provisionamento
+
 function provisionarOLTNokiaCLI() {
     
     ONU = new OnuDataEntry();
@@ -22,6 +24,18 @@ function provisionarOLTFurakawa() {
     setButtonVisibility("visible");
 
 }
+
+// Desprovisionamento
+
+function desprovisionarNokiaCLI() {
+    ONU = new OnuDataEntry();
+    ONU.setOLT("HL");
+    OLT = ONU.getOLT();
+    writeScript(generateUnprovCode(OLT, ONU));
+    setButtonVisibility("visible");
+}
+
+// -------------------------------------
 
 function generateProvCode(OLT, ONU) {
     console.log("Nome da OLT: " +OLT)
@@ -97,6 +111,14 @@ onu-profile ${ONU.getOnuPosArr()[2]} ${generateVLANProfile(ONU)}
 onu description ${ONU.getOnuPosArr()[2]} cod.${ONU.getClientID()}
 wr mem
 `
+    }
+}
+
+function generateUnprovCode(OLT, ONU) {
+    if (OLT == 'HL') {
+        return `configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state down
+configure equipment ont no interface 1/1/${ONU.getOnuPos()}
+exit all`
     }
 }
 
