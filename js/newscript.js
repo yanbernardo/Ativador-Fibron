@@ -59,6 +59,7 @@ ENT-VLANEGPORT::ONTL2UNI-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-$
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE=${verificarVLAN(ONU.getOnuPosArr(), OLT)};
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-2::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username,PARAMVALUE="${ONU.getUser()}";
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="${ONU.getPassword()}";
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-3-6-32-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="dwp@ssw0rd";
 `
         } else {
             return `ENT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::::DESC1="${ONU.getONUModelAuto()}",DESC2="COD.${ONU.getClientID()}",SERNUM=${ONU.getSerial()},SWVERPLND=DISABLED;
