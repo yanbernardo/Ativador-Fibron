@@ -1,6 +1,6 @@
 #nav {
     width: 100%;
-    background-color: #2d2d555b;
+    background-color: rgba(45, 45, 85, 0.357);
     overflow: auto;
 }
 
@@ -14,7 +14,6 @@
     padding: 12px;
     color: white;
     text-decoration: none;
-    font-size: 17px;
     width: 47.49%;
     text-align: center;
 
@@ -24,7 +23,7 @@
 }
 
 #nav a:hover {
-    background-color: #0000005b
+    background-color: rgba(0, 0, 0, 0.357);
 }
 
 #nav a.active {

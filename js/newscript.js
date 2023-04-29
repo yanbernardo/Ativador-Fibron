@@ -26,21 +26,22 @@ function provisionarOLTFurakawa() {
 function generateProvCode(OLT, ONU) {
     console.log("Nome da OLT: " +OLT)
     if (OLT == 'HL') {
-            return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 ${ONU.getModel()} desc2 COD.${ONU.getClientID()}
-configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up
-configure equipment ont slot 1/1/${ONU.getOnuPos()}/1 planned-card-type 10_100base plndnumdataports 1 plndnumvoiceports 0 admin-state up
-configure qos interface ont:1/1/${ONU.getOnuPos()} us-num-queue 4
-configure interface port uni:1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 admin-up link-updown-trap
-configure ethernet ont 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 auto-detect 10_100_1000baset-auto
-configure ethernet ont 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 admin-state up
-configure qos interface 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 queue 0 priority 5 weight 0 shaper-profile name:1G
-configure qos interface 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 upstream-queue 0 priority  1 bandwidth-profile name:1G
-configure bridge port 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 max-unicast-mac 4
-configure bridge port 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 vlan-id 100 tag single-tagged l2fwder-vlan ${verificarVLAN(ONU.getOnuPosArr(), OLT)} vlan-scope local
-exit all
-admin save
-admin software-mngt ihub database save-protected
-exit all`;
+return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 ${ONU.getModel()} desc2 COD.${ONU.getClientID()}
+configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up  
+configure equipment ont slot 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()} planned-card-type veip plndnumdataports 1 plndnumvoiceports 0  
+configure qos interface ont:1/1/${ONU.getOnuPos()} us-num-queue 4  
+configure interface port uni:1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 admin-up link-updown-trap  
+configure veip ont 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 domain-name VEIP1  
+configure veip ont 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 admin-state up  
+configure qos interface 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 queue 0 priority 5 weight 0 shaper-profile name:1G 
+configure qos interface 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 upstream-queue 0 priority 1 bandwidth-profile name:1G 
+configure bridge port 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 max-unicast-mac 4 
+configure bridge port 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()}/1 vlan-id 100 tag single-tagged l2fwder-vlan ${verificarVLAN(ONU.getOnuPosArr(), OLT)} vlan-scope local  
+exit all  
+admin save  
+admin software-mngt ihub database save-protected  
+exit all  
+            `;
     }
 
     if (OLT == 'AM' || OLT == 'PB') {
