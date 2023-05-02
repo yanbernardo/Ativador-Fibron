@@ -35,6 +35,13 @@ function desprovisionarNokiaCLI() {
     setButtonVisibility("visible");
 }
 
+function desprovisionarGeral() {
+    ONU = new OnuDataEntry();
+    OLT = ONU.getOLT();
+    writeScript(generateUnprovCode(OLT, ONU));
+    setButtonVisibility("visible");
+}
+
 // -------------------------------------
 
 function generateProvCode(OLT, ONU) {
@@ -119,6 +126,28 @@ function generateUnprovCode(OLT, ONU) {
         return `configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state down
 configure equipment ont no interface 1/1/${ONU.getOnuPos()}
 exit all`
+    }
+    if (OLT == 'AM') {
+        return `ED-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}:::::OOS;
+DLT-ONT::ONT-1-1-3-6-32::;
+        `
+    }
+    if (OLT == "SV" || OLT == "SB1" || OLT == "SB2" || OLT == "SB3" || OLT == "PQ1" || OLT == "PQ2" || OLT == "VSC" || OLT == "STM" || OLT == "SAM" || OLT == "NP") {
+        return `en
+conf t
+int gpon ${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+no onu ${ONU.getOnuPosArr()[2]}
+wr mem
+`
+    }
+    if (OLT == "XV") {
+        return `en
+conf t
+gpon
+gpon-olt ${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+no onu ${ONU.getOnuPosArr()[2]}
+wr mem
+`
     }
 }
 
