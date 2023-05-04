@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="./js/trocasenha.js"></script>
 
+
     <title>OLTs | Troca de Senha</title>
 </head>
 <body>
@@ -25,12 +26,12 @@
         <h1>Troca de Senha TLI</h1>
         <form onsubmit="gerarScriptNomeESenha(); return false">
             <div class="input">
-                <label for="">Nome da Rede:* </label>
-                <input placeholder="NomeDoWifi" autocomplete="off" type="text" id="nome" required>
+                <label for="">Nome da Rede: </label>
+                <input placeholder="NomeDoWifi" autocomplete="off" type="text" id="nome">
             </div>
             <div class="input">
-                <label for="">Nova Senha:* </label>
-                <input placeholder="SenhaDoWifi" autocomplete="off" type="text" id="senha" required>
+                <label for="">Nova Senha: </label>
+                <input placeholder="SenhaDoWifi" autocomplete="off" type="text" id="senha">
             </div>
             <div class="input">
                 <label for="">SLOT/PON/PORTA:* </label>
@@ -50,6 +51,11 @@
         </footer>
     </main>
 
+    <script>
+        window.onload = function(){
+            window.alert("Para alterar somente uma das configurações, deixe a outra em branco")
+        }
+    </script>
     
 </body>
 </html>
