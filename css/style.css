@@ -31,7 +31,8 @@ nav a{
     color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 17px;
-    width: 389px;
+    box-sizing: border-box;
+    width: 33.334%;
     text-align: center;
 }
 
@@ -50,8 +51,8 @@ h1 {
 
 main {
     margin: auto;
-    min-width: 800px;
-    width: 1240px;
+    min-width: 300px;
+    max-width: 1240px;
     background-color: rgba(39, 34, 87, 0.502);
     background-image: linear-gradient(to right, rgba(72, 74, 111, 0.151), rgba(65, 0, 33, 0.925));
     height: 100vh;
@@ -71,7 +72,7 @@ main {
 }
 
 #txtarea {
-    width: 100%;
+    width: 99%;
     max-width: 940px;
     height: 310px;
     resize: none;
@@ -83,8 +84,6 @@ main {
 
 section {
     margin: auto;
-    max-width: 950px;
-    max-height: fit-content;
     box-sizing: border-box;
 }
 
