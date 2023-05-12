@@ -67,16 +67,17 @@
                     <input type="submit" class="input submit" value="Provisionar">
                     <input type="button" onclick="desprovisionarNokiaCLI()" class="input submit" value="Desprovisionar">
             </form>
+            <div id="answer-box">
+                <textarea readonly name="" id="txtarea" cols="30" rows="10"></textarea>
+                <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
+            </div>
+            <p class="obs">Todas as informações sinalizadas com (*) são obrigatórias</p>
+            <footer>
+                <a href="ips.html">+ INFO</a>
+                <p>Criado por <u>Yan Bernardo</u></p>
+            </footer>
         </section>
         
-        <div id="answer-box">
-            <textarea readonly name="" id="txtarea" cols="30" rows="10"></textarea>
-            <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
-        </div>
-        <p>Todas as informações sinalizadas com (*) são obrigatórias</p>
-        <footer>
-            <p>Criado por <u>Yan Bernardo</u></p>
-        </footer>
     </main>
 
 
