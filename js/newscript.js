@@ -147,7 +147,7 @@ exit all`
     }
     if (OLT == 'AM') {
         return `ED-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}:::::OOS;
-DLT-ONT::ONT-1-1-3-6-32::;
+DLT-ONT::ONT-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}::;
         `
     }
     if (OLT == "SV" || OLT == "SB1" || OLT == "SB2" || OLT == "SB3" || OLT == "PQ1" || OLT == "PQ2" || OLT == "VSC" || OLT == "STM" || OLT == "SAM" || OLT == "NP") {
