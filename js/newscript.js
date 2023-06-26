@@ -65,7 +65,7 @@ function desprovisionarGeral() {
 function generateProvCode(OLT, ONU) {
     console.log("Nome da OLT: " +OLT)
     if (OLT == 'HL') {
-return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 ${ONU.getModel()} desc2 COD.${ONU.getClientID()}
+return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 C${ONU.getCirc()}-CT${ONU.getCTO()} desc2 COD.${ONU.getClientID()}
 configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up  
 configure equipment ont slot 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()} planned-card-type veip plndnumdataports 1 plndnumvoiceports 0  
 configure qos interface ont:1/1/${ONU.getOnuPos()} us-num-queue 4  
@@ -180,6 +180,8 @@ class OnuDataEntry {
         this.userPPPoE = document.getElementById('userPPP');
         this.senhaPPPoE = document.getElementById('senhaPPP');
         this.routerMode = document.getElementById('router');
+        this.circ = document.getElementById('circuito');
+        this.cto = document.getElementById('cto');
     }
 
     getSerial(){
@@ -200,6 +202,28 @@ class OnuDataEntry {
 
     getModel() {
         return this.model.value;
+    }
+
+    getCirc() {
+        if (this.circ.value) {
+            if (this.circ.value.length == 1) {
+                return "0" + this.circ.value;
+            } else {
+                return this.circ.value;
+            }
+        }
+        return "xx"
+    }
+
+    getCTO() {
+        if (this.cto.value) {
+            if (this.cto.value.length == 1) {
+                return "0" + this.cto.value;
+            } else {
+                return this.cto.value;
+            }
+        }
+        return "xx"
     }
 
     getClientID(){

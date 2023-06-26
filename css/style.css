@@ -36,7 +36,7 @@ nav a{
     text-decoration: none;
     font-size: 17px;
     box-sizing: border-box;
-    width: 33.333%;
+    width: 25%;
     text-align: center;
 }
 
@@ -44,7 +44,7 @@ nav a:hover {
     background-color: rgba(94, 94, 94, 0.568);
 }
 
-main.hel a.hel, main.AM a.AM, main.PB a.PB, main.FK a.FK {
+main.hel a.hel, main.AM a.AM, main.PB a.PB, main.FK a.FK, main.parks a.parks {
     background-color: rgba(94, 94, 94, 0.568);
     color: rgb(150, 187, 255);
 }
@@ -154,4 +154,14 @@ td {
     border: 1px solid white;
     height: 25px;
     padding: 0px 5px;
+}
+
+.input-sm {
+
+    float: left;
+}
+
+.input-sm input {
+    margin-right: 20px;
+    width: 35px;
 }

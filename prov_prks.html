@@ -18,49 +18,44 @@
 
     </ul>
            
-    <main id="main" class="FK">
+    <main id="main" class="parks">
         <h1>Provisionamento ONUs</h1>
 
         <nav>
             <ul>
                 <li><a class='hel' href="index.html">Heliópolis | Vale</a></li>
                 <li><a class='AM'href="prov_TL1.html">Amapá | Piabetá - TL1</a></li>
-                <li><a class='FK'href="#">Furakawa</a></li>
-                <li><a class="parks" href="prov_prks.html">Parks</a></li>
+                <li><a class='FK'href="prov_frkw.html">Furakawa</a></li>
+                <li><a class="parks" href="#">Parks</a></li>
             </ul>
         </nav>
 
 
             <section>
-                <form onsubmit="provisionarOLTFurakawa(); return false">
+                <form onsubmit="provisionarOLTParks(); return false">
                     <div class="input-pair float-left">
                         <div class="input">
                             <label for="olt">OLT: </label>
                             <select name="olt" id="olt">
-                                <option value="SV">São Vicente (90.2)</option>
-                                <option value="SB1">São Bento 1</option>
-                                <option value="SB2">São Bento 2</option>
-                                <option value="SB3">São Bento 3</option>
-                                <option value="PQ1">PQ. Amorim 1</option>
-                                <option value="PQ2">PQ. Amorim 2</option>
-                                <option value="VSC">GPON Vasco</option>
-                                <option value="STM">ST. Maria | S. Bernardo (200.2)</option>
-                                <option value="SAM">St. Amélia (80.2)</option>
-                                <option value="NP">NV. Piam | St. Amélia (224.10)</option>
-                                <option value="XV">Xavante | Lote XV</option>
+                                <option value="PK1">1</option>
+                                <option value="PK2">2</option>
+                                <option value="PK3">3</option>
+                                <option value="PK4">4</option>
+                                <option value="PK5">5</option>
+                                <option value="PK7">7.2</option>
                             </select>
                         </div>
                         <div class="input">
                             <label for="serial">Serial:</label>
                             <input autocomplete="off" placeholder="serial" type="text" name="serial" required id="serial">
-                            <label for="">(*)</label>
+                            (*)
                         </div>
                     </div>
                     <div class="input-pair float-left">
                         <div class="input">
                             <label for="ont">SLOT/PON/ONT:</label>
                             <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" name="ont" required id="ont">
-                            <label for="ont">(*)</label>
+                            (*)
                         </div>
                         <div class="input">
                             <label for="clientID">Código Cliente:</label>
@@ -68,7 +63,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <p><input type="checkbox" name="" id="router"> Router</p>
+                    <p><input type="checkbox" name="" id="bridge"> Bridge</p>
                     <input type="submit" class="input submit" value="Provisionar">
                     <input type="button" onclick="desprovisionarGeral()" class="input submit" value="Desprovisionar">
                 </form>
