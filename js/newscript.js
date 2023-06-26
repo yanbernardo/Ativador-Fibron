@@ -319,7 +319,8 @@ function verifyModelVeip(objONU) {
     if (serialInit == "MSTC" || serialInit == "YHTC" 
     || serialInit == "TLCM" || serialInit == "GPON" 
     || serialInit == "CIOT" || serialInit == "NBEL" 
-    || serialInit == "ASKY" || serialInit == "HWTC") {
+    || serialInit == "ASKY" || serialInit == "HWTC"
+    || serialInit == "TDTC") {
         return 6;
     } else if (serialInit == "FRKW") {
         return 4
