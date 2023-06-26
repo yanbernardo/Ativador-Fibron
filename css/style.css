@@ -157,11 +157,17 @@ td {
 }
 
 .input-sm {
-
     float: left;
+    width: 100%;
+    margin-top: 0;
 }
 
-.input-sm input {
-    margin-right: 20px;
-    width: 35px;
+.circ-info {
+    margin: auto;
+    width: fit-content;
+}
+
+.input-sm input, .input-sm select {
+    width: 40px;
+    margin-right: 40px;
 }
