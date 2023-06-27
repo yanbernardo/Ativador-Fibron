@@ -308,7 +308,7 @@ function generateVLANProfile(ONUobj) {
         if (ONUobj.getSerial().slice(0, 4) == "HWTC") {
             return `HUAWEI_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`;
         }
-        if ((ONUobj.getSerial().slice(0, 4) == "PRKS" && !ONUobj.isBridge()) || (ONUobj.getSerial().slice(0, 4) == "TDTC" && !ONUobj.isBridge())) {
+        if (ONUobj.getSerial().slice(0, 4) == "PRKS" && !ONUobj.isBridge() || ONUobj.getSerial().slice(0, 4) == "TDTC" && !ONUobj.isBridge()) {
             if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
                 return `ROUTER_101_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
             } else if (ONUobj.getOLT() == "PK7") {
@@ -316,11 +316,11 @@ function generateVLANProfile(ONUobj) {
             }
             return `onu_101_router_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
         }
-
-
-        if ((ONUobj.getSerial().slice(0, 4) == "PRKS" && ONUobj.isBridge()) || (ONUobj.getSerial().slice(0, 4) == "TDTC" && ONUobj.isBridge())) {
+        if (ONUobj.getSerial().slice(0, 4) == "PRKS" || ONUobj.getSerial().slice(0, 4) == "TDTC" && ONUobj.isBridge()) {
             if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
                 return `BRIDGE_101_1_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+            } else if (ONUobj.getOLT() == "PK7") {
+                return `ROUTER_410_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
             }
             return `flow_onu_101_bridge_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
         }
