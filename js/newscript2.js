@@ -305,23 +305,35 @@ class OnuDataEntry {
 
 function generateVLANProfile(ONUobj) {
     if (ONUobj.getOLT() == "PK1" || ONUobj.getOLT() == "PK2" || ONUobj.getOLT() == "PK3" || ONUobj.getOLT() == "PK4" || ONUobj.getOLT() == "PK5" || ONUobj.getOLT() == "PK7") {
+
+        // Gerando Profile Huaweii
         if (ONUobj.getSerial().slice(0, 4) == "HWTC") {
             return `HUAWEI_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`;
         }
+
+        
+        // Gerando Profile Parks Router
         if (ONUobj.getSerial().slice(0, 4) == "PRKS" && !ONUobj.isBridge() || ONUobj.getSerial().slice(0, 4) == "TDTC" && !ONUobj.isBridge()) {
+
+            // PARKS 101 ROUTER
             if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
                 return `ROUTER_101_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
-            } else if (ONUobj.getOLT() == "PK7") {
+            } else if (ONUobj.getOLT() == "PK7") {      //PARKS 410 NORMAL PK7
                 return `ROUTER_410_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
             }
             return `onu_101_router_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
         }
+
+        // Gerando Profile Parks Bridge
         if (ONUobj.getSerial().slice(0, 4) == "PRKS" || ONUobj.getSerial().slice(0, 4) == "TDTC" && ONUobj.isBridge()) {
+
+            // PARKS 101 BRIDGE PK7
             if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
                 return `BRIDGE_101_1_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
-            } else if (ONUobj.getOLT() == "PK7") {
+            } else if (ONUobj.getOLT() == "PK7") {      //PARKS 410 NORMAL  PK7
                 return `ROUTER_410_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
             }
+            // PARKS BRIDGE DEMAIS OLT
             return `flow_onu_101_bridge_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
         }
     }
