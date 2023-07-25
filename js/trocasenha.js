@@ -71,3 +71,7 @@ function copyText() {
     document.execCommand('copy');
     window.alert("Copiado para a área de tranferencia.")
 }
+
+function setButtonVisibility(visibility) {
+    document.getElementById('copy').style.visibility = visibility;
+}

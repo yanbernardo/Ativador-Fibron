@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/router-icon.png" type="image/x-icon">
+
+    <script src="./js/newscript2.js"></script>
+
+
+    <title>OLTs | Troca de Senha</title>
+</head>
+<body class="canal">
+        
+    <header>
+        <ul id="nav">
+            <li><a href="index.html">Provisionamento</a></li>
+            <li><a href="trocasenha.html">Troca de senha</a></li>
+        </ul>
+    </header>
+
+
+    <main>
+        <h1>Troca de Canal TLI</h1>
+        <nav class="TL1">
+            <ul>
+                <li><a href="trocasenha.html" class="senha">Senha Wi-Fi</a></li>
+                <li><a href="#" class="canal">Canal</a></li>
+            </ul>
+        </nav>
+        <form onsubmit="gerarScriptCanalTLI(); return false">
+            <div class="input">
+                <div class="input">
+                    <label for="ont">SLOT/PON/PORTA:* </label>
+                    <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" id="ont" required>
+                </div>
+                <div class="float-left input-pair">
+                    <label for="canal2_4">Canal Rede 2.4Ghz: </label>
+                    <select name="canal2_4" id="canal2_4" placeholder="Canal 2.4">
+                        <option value="0">Não Alterar</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                    </select>
+                </div>
+                <div class="float-right input-pair">
+                    <label for="canal5">Canal Rede 5Ghz: </label>
+                    <select name="canal5" id="canal5" placeholder="Canal 5">
+                        <option value="0">Não Alterar</option>
+                        <option value="36">36</option>
+                        <option value="40">40</option>
+                        <option value="44">44</option>
+                        <option value="48">48</option>
+                        <option value="52">52</option>
+                        <option value="56">56</option>
+                        <option value="60">60</option>
+                        <option value="64">64</option>
+                        <option value="100">100</option>
+                        <option value="104">104</option>
+                        <option value="108">108</option>
+                        <option value="112">112</option>
+                        <option value="149">149</option>
+                        <option value="153">153</option>
+                        <option value="157">157</option>
+                        <option value="161">161</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            
+            <input class="input submit" value="Gerar Código" type="submit">
+
+        </form>
+        <div id="answer-box">
+            <textarea readonly name="" id="txtarea" cols="30" rows="10"></textarea>
+            <input id="copy" style="visibility: hidden;" type="button" onclick="copyText()" value="Copiar Código">
+        </div>
+        <p class="obs">Todas as informações sinalizadas com (*) são obrigatórias</p>
+        <footer style="margin-top: 70px;">
+            <a href="ips.html">+ INFO</a>
+            <p>Criado por <u>Yan Bernardo</u></p>
+        </footer>
+    </section>
+    
+    </main>
+<!-- 
+    <script>
+        window.onload = function(){
+            window.alert("Para alterar somente uma das configurações, deixe a outra em branco")
+        }
+    </script> -->
+    
+</body>
+</html>

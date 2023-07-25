@@ -66,6 +66,42 @@ function desprovisionarGeral() {
     setButtonVisibility("visible");
 }
 
+function gerarScriptCanalTLI() {
+    ONU = new OnuDataEntry();
+    let code;
+
+    if (ONU.getCanal5() == 0 && ONU.getCanal2() == 0) {
+        window.alert("Preencha pelo menos uma das opções!")
+    } else if (ONU.getCanal2() == 0) {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
+        
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";`
+    } else if (ONU.getCanal5() == 0) {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
+
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
+`
+    } else if (ONU.getCanal5() != 0 && ONU.getCanal2() != 0) {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
+
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";
+`
+    }
+
+    writeScript(code);
+    setButtonVisibility("visible");
+}
+
 // -------------------------------------
 
 function generateProvCode(OLT, ONU) {
@@ -197,10 +233,10 @@ wr mem
 
 class OnuDataEntry {
     constructor() {
-        this.serial = document.getElementById('serial').value.toUpperCase();
+        this.serial = document.getElementById('serial');
         this.onuPos = document.getElementById('ont').value;
         this.model = document.getElementById('models');
-        this.clientID = document.getElementById('clientID').value;
+        this.clientID = document.getElementById('clientID');
         this.fibron = document.getElementById('fibron');
         this.OLT = document.getElementById('olt');
         this.userPPPoE = document.getElementById('userPPP');
@@ -209,14 +245,24 @@ class OnuDataEntry {
         this.circ = document.getElementById('circuito');
         this.cto = document.getElementById('cto');
         this.bridgeMode = document.getElementById('bridge');
+        this.canal24 = document.getElementById('canal2_4');
+        this.canal5 = document.getElementById('canal5');
+    }
+
+    getCanal2() {
+        return this.canal24.value;
+    }
+
+    getCanal5() {
+        return this.canal5.value;
     }
 
     getSerial(){
-        return this.serial;
+        return this.serial.value.toUpperCase();
     }
 
     getSerialLower(){
-        return this.serial.toLowerCase();
+        return this.serial.value.toLowerCase();
     }
 
     getSerialSplit() {
@@ -258,7 +304,7 @@ class OnuDataEntry {
     }
 
     getClientID(){
-        return this.clientID;
+        return this.clientID.value;
     }
 
     getOnuVeip() {

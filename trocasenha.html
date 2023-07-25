@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,7 +15,7 @@
 
     <title>OLTs | Troca de Senha</title>
 </head>
-<body>
+<body class="senha">
         
     <header>
         <ul id="nav">
@@ -26,18 +27,24 @@
 
     <main>
         <h1>Troca de Senha TLI</h1>
+        <nav class="TL1">
+            <ul>
+                <li><a href="#" class="senha">Senha Wi-Fi</a></li>
+                <li><a href="trocacanal.html" class="canal">Canal</a></li>
+            </ul>
+        </nav>
         <form onsubmit="gerarScriptNomeESenha(); return false">
             <div class="input">
-                <label for="">Nome da Rede: </label>
-                <input placeholder="NomeDoWifi" autocomplete="off" type="text" id="nome">
+                <label for="nome">Nome da Rede: </label>
+                <input placeholder="Nome do Wi-Fi" autocomplete="off" type="text" id="nome" name="nome">
             </div>
             <div class="input">
-                <label for="">Nova Senha: </label>
-                <input placeholder="SenhaDoWifi" autocomplete="off" type="text" id="senha">
+                <label for="senha">Nova Senha: </label>
+                <input placeholder="Senha do Wi-Fi" autocomplete="off" type="text" id="senha" name="senha">
             </div>
             <div class="input">
-                <label for="">SLOT/PON/PORTA:* </label>
-                <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" id="ont" required>
+                <label for="ont">SLOT/PON/PORTA:* </label>
+                <input placeholder="Ex. 3/12/33" autocomplete="off" type="text" id="ont" name="ont" required>
             </div>
             
             <input class="input submit" value="Gerar Código" type="submit">

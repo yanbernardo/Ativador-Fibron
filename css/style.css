@@ -40,11 +40,15 @@ nav a{
     text-align: center;
 }
 
+.TL1 a {
+    width: 50%;
+}
+
 nav a:hover {
     background-color: rgba(94, 94, 94, 0.568);
 }
 
-main.hel a.hel, main.AM a.AM, main.PB a.PB, main.FK a.FK, main.parks a.parks {
+main.hel a.hel, main.AM a.AM, main.PB a.PB, main.FK a.FK, main.parks a.parks, body.canal a.canal , body.senha a.senha {
     background-color: rgba(94, 94, 94, 0.568);
     color: rgb(150, 187, 255);
 }
@@ -114,6 +118,10 @@ form {
     float: left;
 }
 
+.float-right {
+    float: right;
+}
+
 .clear {
     clear: both;
 }
@@ -125,6 +133,7 @@ section .obs {
 footer {
     background-color: rgba(0, 0, 0, 0.76);
     text-align: right;
+    margin-top: 70px;
 }
 
 footer p {

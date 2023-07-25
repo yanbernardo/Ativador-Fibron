@@ -32,7 +32,8 @@
 
 
             <section>
-                <form onsubmit="provisionarOLTParks(); return false">
+                <!-- onsubmit="provisionarOLTParks(); return false" -->
+                <form >
                     <div class="input-pair float-left">
                         <div class="input">
                             <label for="olt">OLT: </label>
@@ -64,7 +65,7 @@
                     </div>
                     <div class="clear"></div>
                     <p><input type="checkbox" name="" id="bridge"> <label for="bridge">Bridge</label></p>
-                    <input type="submit" class="input submit" value="Provisionar">
+                    <input type="button" onclick="provisionarOLTParks();" class="input submit" value="Provisionar">
                     <input type="button" onclick="desprovisionarGeral()" class="input submit" value="Desprovisionar">
                 </form>
                 <div id="answer-box">
