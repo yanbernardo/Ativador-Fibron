@@ -70,30 +70,34 @@ function gerarScriptCanalTLI() {
     ONU = new OnuDataEntry();
     let code;
 
-    if (ONU.getCanal5() == 0 && ONU.getCanal2() == 0) {
+    if (ONU.getCanal5() == "none" && ONU.getCanal2() == "none") {
         window.alert("Preencha pelo menos uma das opções!")
-    } else if (ONU.getCanal2() == 0) {
+    } else if (ONU.getCanal2() == "none") {
         code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
 DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
         
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+Y
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";`
-    } else if (ONU.getCanal5() == 0) {
+    } else if (ONU.getCanal5() == "none") {
         code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
 DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
 
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+Y
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
 `
-    } else if (ONU.getCanal5() != 0 && ONU.getCanal2() != 0) {
+    } else if (ONU.getCanal5() != "none" && ONU.getCanal2() != "none") {
         code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
 DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
 DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
 DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
 
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+Y
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+Y
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";
 `
     }
