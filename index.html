@@ -23,8 +23,8 @@
 
         <nav>
             <ul>
-                <li><a class='hel' href="#">Heliópolis | Vale</a></li>
-                <li><a class='amapa'href="prov_TL1.html">Amapá | Piabetá - TL1</a></li>
+                <li><a class='hel' href="#">NOKIA - CLI</a></li>
+                <li><a class='amapa'href="prov_TL1.html">NOKIA - TL1</a></li>
                 <li><a class='furakawa'href="prov_frkw.html">Furakawa</a></li>
                 <li><a class="parks" href="prov_prks.html">Parks</a></li>
             </ul>
@@ -33,6 +33,13 @@
 
         <section>
             <form onsubmit="provisionarOLTNokiaCLI();return false">
+                <div class="input">
+                    <label for="olt">Local: </label>
+                    <select name="olt" id="olt">
+                        <option value="AM_CLI">Amapá</option>
+                        <option value="HL">Heliópolis</option>
+                    </select> (*)
+                </div>
                 <div class="input-pair float-left">
                     <div class="input">
                         <label for="serial">Serial*:</label>

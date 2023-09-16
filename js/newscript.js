@@ -21,7 +21,6 @@ ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPos
 function provisionarOLTNokiaCLI() {
     
     ONU = new OnuDataEntry();
-    ONU.setOLT("HL")
     OLT = ONU.getOLT();
     writeScript(generateProvCode(OLT, ONU));
     setButtonVisibility("visible");
@@ -111,7 +110,7 @@ ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPos
 
 function generateProvCode(OLT, ONU) {
     console.log("Nome da OLT: " +OLT)
-    if (OLT == 'HL') {
+    if (OLT == 'HL' || OLT == 'AM_CLI') {
 return `configure equipment ont interface 1/1/${ONU.getOnuPos()} sw-ver-pland disabled sernum ${ONU.getSerialSplit()} cvlantrans-mode local fec-up enable enable-aes enable voip-allowed veip desc1 C${ONU.getCirc()}-CT${ONU.getCTO()} desc2 COD.${ONU.getClientID()}
 configure equipment ont interface 1/1/${ONU.getOnuPos()} admin-state up  
 configure equipment ont slot 1/1/${ONU.getOnuPos()}/${ONU.getOnuVeip()} planned-card-type veip plndnumdataports 1 plndnumvoiceports 0  
@@ -429,7 +428,7 @@ function identifyONUModel(serial) {
 
 function verifyModelVeip(objONU) {
         
-    if (objONU.getOLT() == "HL" && objONU.isFibron()) {
+    if ((objONU.getOLT() == "HL" || objONU.getOLT() == "AM_CLI") && objONU.isFibron()) {
         return 1;
     }
 
@@ -490,7 +489,7 @@ function verificarVLAN(ontArr, OLT) { // 516
         }
     } 
     
-    if (OLT == "AM") {
+    if (OLT == "AM" || OLT == "AM_CLI") {
         switch (placa) {
             case 1:
                 base = 919;
