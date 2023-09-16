@@ -43,6 +43,13 @@ function provisionarOLTFurakawa() {
 
 }
 
+function provisionarOLTParks() {
+    ONU = new OnuDataEntry();
+    OLT = ONU.getOLT();
+    writeScript(generateProvCode(OLT, ONU))
+    setButtonVisibility("visible");
+}
+
 // Desprovisionamento
 
 function desprovisionarNokiaCLI() {
@@ -57,6 +64,46 @@ function desprovisionarGeral() {
     ONU = new OnuDataEntry();
     OLT = ONU.getOLT();
     writeScript(generateUnprovCode(OLT, ONU));
+    setButtonVisibility("visible");
+}
+
+function gerarScriptCanalTLI() {
+    ONU = new OnuDataEntry();
+    let code;
+
+    if (ONU.getCanal5() == "none" && ONU.getCanal2() == "none") {
+        window.alert("Preencha pelo menos uma das opções!")
+    } else if (ONU.getCanal2() == "none") {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
+        
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+Y
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";`
+    } else if (ONU.getCanal5() == "none") {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
+
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+Y
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
+`
+    } else if (ONU.getCanal5() != "none" && ONU.getCanal2() != "none") {
+        code = `DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24;
+DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25;
+
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-22::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.AutoChannelEnable,PARAMVALUE="false"
+Y
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-23::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.Channel,PARAMVALUE="${ONU.getCanal2()}";
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-24::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.AutoChannelEnable,PARAMVALUE="false"
+Y
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${ONU.getOnuPosArr()[0]}-${ONU.getOnuPosArr()[1]}-${ONU.getOnuPosArr()[2]}-25::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.Channel,PARAMVALUE="${ONU.getCanal5()}";
+`
+    }
+
+    writeScript(code);
     setButtonVisibility("visible");
 }
 
@@ -137,6 +184,25 @@ onu description ${ONU.getOnuPosArr()[2]} cod.${ONU.getClientID()}
 wr mem
 `
     }
+
+    if (OLT == "PK1" || OLT == "PK2" || OLT == "PK3" || OLT == "PK4" || OLT == "PK5" || OLT == "PK7") {
+        if (ONU.isBridge()) {
+            return `conf t
+int gpon${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+onu add serial-number ${ONU.getSerialLower()}
+onu ${ONU.getSerialLower()} flow-profile ${generateVLANProfile(ONU)}
+onu ${ONU.getSerialLower()} vlan-translation-profile _${verificarVLAN(ONU.getOnuPosArr(), OLT)} uni-port 1
+onu ${ONU.getSerialLower()} alias cod.${ONU.getClientID()}
+do copy running-config startup-config`
+        } else {
+            return `conf t
+int gpon${ONU.getOnuPosArr()[0]}/${ONU.getOnuPosArr()[1]}
+onu add serial-number ${ONU.getSerialLower()}
+onu ${ONU.getSerialLower()} flow-profile ${generateVLANProfile(ONU)}
+onu ${ONU.getSerialLower()} alias cod.${ONU.getClientID()}
+do copy running-config startup-config`
+        }
+    }
 }
 
 function generateUnprovCode(OLT, ONU) {
@@ -171,10 +237,10 @@ wr mem
 
 class OnuDataEntry {
     constructor() {
-        this.serial = document.getElementById('serial').value.toUpperCase();
+        this.serial = document.getElementById('serial');
         this.onuPos = document.getElementById('ont').value;
         this.model = document.getElementById('models');
-        this.clientID = document.getElementById('clientID').value;
+        this.clientID = document.getElementById('clientID');
         this.fibron = document.getElementById('fibron');
         this.OLT = document.getElementById('olt');
         this.userPPPoE = document.getElementById('userPPP');
@@ -182,14 +248,29 @@ class OnuDataEntry {
         this.routerMode = document.getElementById('router');
         this.circ = document.getElementById('circuito');
         this.cto = document.getElementById('cto');
+        this.bridgeMode = document.getElementById('bridge');
+        this.canal24 = document.getElementById('canal2_4');
+        this.canal5 = document.getElementById('canal5');
+    }
+
+    getCanal2() {
+        return this.canal24.value;
+    }
+
+    getCanal5() {
+        return this.canal5.value;
     }
 
     getSerial(){
-        return this.serial;
+        return this.serial.value.toUpperCase();
+    }
+
+    getSerialLower(){
+        return this.serial.value.toLowerCase();
     }
 
     getSerialSplit() {
-        return  this.serial.slice(0,4) + ':' + this.serial.slice(4, this.serial.length);
+        return  this.getSerial().slice(0,4) + ':' + this.getSerial().slice(4, this.serial.length);
     }
 
     getOnuPos() {
@@ -227,7 +308,7 @@ class OnuDataEntry {
     }
 
     getClientID(){
-        return this.clientID;
+        return this.clientID.value;
     }
 
     getOnuVeip() {
@@ -255,7 +336,7 @@ class OnuDataEntry {
     }
 
     getONUModelAuto() {
-        return identifyONUModel(this.serial);
+        return identifyONUModel(this.getSerial());
     }
 
     isFibron() {
@@ -266,9 +347,47 @@ class OnuDataEntry {
         return this.routerMode.checked;
     }
 
+    isBridge() {
+        return this.bridgeMode.checked;
+    }
+
 }
 
 function generateVLANProfile(ONUobj) {
+    if (ONUobj.getOLT() == "PK1" || ONUobj.getOLT() == "PK2" || ONUobj.getOLT() == "PK3" || ONUobj.getOLT() == "PK4" || ONUobj.getOLT() == "PK5" || ONUobj.getOLT() == "PK7") {
+
+        // Gerando Profile Huaweii
+        if (ONUobj.getSerial().slice(0, 4) == "HWTC") {
+            return `HUAWEI_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`;
+        }
+
+        
+        // Gerando Profile Parks Router
+        if (ONUobj.getSerial().slice(0, 4) == "PRKS" && !ONUobj.isBridge() || ONUobj.getSerial().slice(0, 4) == "TDTC" && !ONUobj.isBridge()) {
+
+            // PARKS 101 ROUTER
+            if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
+                return `ROUTER_101_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+            } else if (ONUobj.getOLT() == "PK7") {      //PARKS 410 NORMAL PK7
+                return `ROUTER_410_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+            }
+            return `onu_101_router_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+        }
+
+        // Gerando Profile Parks Bridge
+        if (ONUobj.getSerial().slice(0, 4) == "PRKS" || ONUobj.getSerial().slice(0, 4) == "TDTC" && ONUobj.isBridge()) {
+
+            // PARKS 101 BRIDGE PK7
+            if (ONUobj.getSerial().slice(4, 7) == "00B" && ONUobj.getOLT() == "PK7") {
+                return `BRIDGE_101_1_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+            } else if (ONUobj.getOLT() == "PK7") {      //PARKS 410 NORMAL  PK7
+                return `ROUTER_410_PON${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+            }
+            // PARKS BRIDGE DEMAIS OLT
+            return `flow_onu_101_bridge_gpon${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT()).slice(1)}`
+        }
+    }
+
     let profile = `VLAN${verificarVLAN(ONUobj.getOnuPosArr(), ONUobj.getOLT())}-${identifyONUModel(ONUobj.getSerial())}`
     if (ONUobj.isRouter()) {
         return profile + "R";
@@ -333,10 +452,14 @@ function verifyModelVeip(objONU) {
     }
 }
 
-function verificarVLAN(ontArr, OLT) {
+function verificarVLAN(ontArr, OLT) { // 516
     let placa = parseInt(ontArr[0]);
     let porta = parseInt(ontArr[1]);
     let base;
+
+    if (OLT == "PK1" || OLT == "PK2" || OLT == "PK3" || OLT == "PK4" || OLT == "PK5" || OLT == "PK7") {
+        return `${OLT[2]}` + `${placa}` + `${porta}`
+    }
     
     if (OLT == "HL") {
         switch (placa) {
@@ -382,16 +505,16 @@ function verificarVLAN(ontArr, OLT) {
                 base = 967;
                 break;
             case 5:
-                base = 983;
+                base = 599;
                 break;
             case 6:
-                base = 999;
+                base = 615;
                 break;
             case 7:
-                base = 1015;
+                base = 699;
                 break;
             case 8:
-                base = 1031;
+                base = 715;
                 break;
         }
     } 
